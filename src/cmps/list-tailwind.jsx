@@ -36,8 +36,8 @@ export const ListTailwind = () => {
         dispatch(addMalfunction(malfunction))
     }
     const onUpdateMalfunction = (malfunction) => {
-        const price = +prompt('New price?')
-        const malfunctionToSave = { ...malfunction, price }
+        const vendor = prompt('New vendor?')
+        const malfunctionToSave = { ...malfunction, vendor }
         dispatch(updateMalfunction(malfunctionToSave))
     }
 
@@ -46,9 +46,9 @@ export const ListTailwind = () => {
 
         <div className="px-4 sm:px-6 lg:px-8">
 
-                <button onClick={onAddMalfunction}>Add Malfunction ⛐</button>
+            <button onClick={onAddMalfunction}>Add Malfunction ⛐</button>
 
-            {malfunctions?.map(malfunction =>
+            {/* {malfunctions?.map(malfunction =>
                 <li className="malfunction-preview" key={malfunction._id}>
                     <h4>{malfunction.vendor}</h4>
                     <h1>⛐</h1>
@@ -59,9 +59,8 @@ export const ListTailwind = () => {
                         <button onClick={() => { onUpdateMalfunction(malfunction) }}>Edit</button>
                     </div>
 
-                    {/* <button className="buy" onClick={() => { onAddToMalfunctiont(malfunction) }}>Add to Malfunctiont</button> */}
                 </li>)
-            }
+            } */}
 
             <div className="sm:flex sm:items-center">
                 <div className="sm:flex-auto">
@@ -79,58 +78,72 @@ export const ListTailwind = () => {
                     </button>
                 </div>
             </div>
-            <div className="mt-8 flow-root">
+            <div dir='rtl' className="mt-8 flow-root">
                 <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                         <table className="min-w-full divide-y divide-gray-300">
                             <thead>
                                 <tr>
-                                    <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">
-                                        Name
+                                    <th scope="col" className="py-3.5 pl-4 pr-3 text-right text-sm font-semibold text-gray-900 sm:pl-0">
+                                        שם
                                     </th>
-                                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                                        Title
+                                    <th scope="col" className="px-3 py-3.5 text-right text-sm font-semibold text-gray-900">
+                                        נוצר בתאריך
                                     </th>
-                                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                                        Status
+                                    <th scope="col" className="px-3 py-3.5 text-right text-sm font-semibold text-gray-900">
+                                        סטטוס
                                     </th>
-                                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                                        Role
+                                    <th scope="col" className="px-3 py-3.5 text-right text-sm font-semibold text-gray-900">
+                                        נוצר על ידי
                                     </th>
-                                    <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-0">
-                                        <span className="sr-only">Edit</span>
+                                    <th className="px-3 py-3.5 text-right text-sm font-semibold text-gray-900">
+                                        <span className="">עריכה</span>
+                                    </th>
+                                    <th className="px-3 py-3.5 text-right text-sm font-semibold text-gray-900">
+                                        <span className="">מחיקה</span>
                                     </th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-200 bg-white">
-                                {people.map((person) => (
-                                    <tr key={person.email}>
+                                {malfunctions.map((malfunction) => (
+                                    <tr key={malfunction.email}>
                                         <td className="whitespace-nowrap py-5 pl-4 pr-3 text-sm sm:pl-0">
                                             <div className="flex items-center">
                                                 <div className="h-11 w-11 flex-shrink-0">
-                                                    <img className="h-11 w-11 rounded-full" src={person.image} alt="" />
+                                                    <img className="h-11 w-11 rounded-full" src={malfunction.image} alt="" />
                                                 </div>
                                                 <div className="ml-4">
-                                                    <div className="font-medium text-gray-900">{person.name}</div>
-                                                    <div className="mt-1 text-gray-500">{person.email}</div>
+                                                    <div className="font-medium text-gray-900">{malfunction.vendor}</div>
+                                                    <div className="mt-1 text-gray-500">{malfunction.email}</div>
                                                 </div>
                                             </div>
                                         </td>
                                         <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
-                                            <div className="text-gray-900">{person.title}</div>
-                                            <div className="mt-1 text-gray-500">{person.department}</div>
+                                            <div className="text-gray-900">{malfunction.title}</div>
+                                            <div className="mt-1 text-gray-500">{malfunction.department}</div>
                                         </td>
                                         <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
                                             <span className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
-                                                Active
+                                                לא טופל
                                             </span>
                                         </td>
-                                        <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">{person.role}</td>
-                                        <td className="relative whitespace-nowrap py-5 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                                            <a href="#" className="text-indigo-600 hover:text-indigo-900">
-                                                Edit<span className="sr-only">, {person.name}</span>
-                                            </a>
+                                        <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">Puki Ja</td>
+
+                                        <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
+                                            <span className="text-gray-900">
+                                                <button onClick={() => { onUpdateMalfunction(malfunction) }}>עריכה</button>
+                                            </span>
                                         </td>
+
+                                        <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
+                                            <span className="text-gray-900">
+                                                <button onClick={() => onRemoveMalfunction(malfunction._id)}>
+                                                    x
+                                                </button>
+                                            </span>
+                                        </td>
+
+
                                     </tr>
                                 ))}
                             </tbody>
