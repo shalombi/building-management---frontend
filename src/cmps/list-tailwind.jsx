@@ -109,6 +109,7 @@ export const ListTailwind = () => {
                                         <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
                                             <span className={`inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset   ${malfunction.treated ? 'bg-green-50 text-green-700 ring-green-600/20': 'bg-orange-200 text-black ring-green-600/20'}`} >
                                                 {!malfunction.treated ? 'לא טופל' : 'טופל'}
+                                                
                                             </span>
                                         </td>
                                         <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">{malfunction?.createdBy}</td>
@@ -130,6 +131,7 @@ export const ListTailwind = () => {
                                         <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
                                             <span className="text-gray-900">
                                                 <button onClick={() => onRemoveMalfunction(malfunction._id)}>
+                                                    
                                                     x
                                                 </button>
                                             </span>
