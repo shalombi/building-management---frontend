@@ -121,7 +121,9 @@ export const ListTailwind = () => {
 
                                         <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
                                             <span className="text-gray-900">
-                                                <button onClick={() => { onUpdateMalfunction(malfunction) }}>עריכה</button>
+                                                <Link to={`/edit/${malfunction._id}`}>
+                                                    עריכה
+                                                </Link>
                                             </span>
                                         </td>
 

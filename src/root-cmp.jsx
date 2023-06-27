@@ -12,6 +12,7 @@ import { AppHeaderTailwind } from './cmps/app-header-tailwind'
 import { LoginTailwind } from './pages/login-tailwind'
 import { SignUpTailwind } from './pages/sign-up-tailwind'
 import { Details } from './pages/details'
+import { EditMalfunction } from './pages/edit-malfunction'
 export class RootCmp extends React.Component {
 
     render() {
@@ -27,8 +28,9 @@ export class RootCmp extends React.Component {
                         <Route path="/signup" element={ <  SignUpTailwind />} />
                         <Route path="/details/:id" element={ <  Details />} />
 
+                        <Route path="/edit/:id" element={ <  EditMalfunction />} />
+                        <Route path="/edit/" element={ <  EditMalfunction />} />
 
-                        {/* Details */}
                     </Routes>
                 </main>
                 {/* <AppFooter /> */}
