@@ -20,14 +20,14 @@ export const ListTailwind = () => {
     const onRemoveMalfunction = (malfunctionId) => {
         dispatch(removeMalfunction(malfunctionId))
     }
-    const onAddMalfunction = () => {
-        const malfunction = malfunctionService.getEmptyMalfunction()
-        malfunction.name = prompt('שם התקלה?')
-        malfunction.createdBy = user.fullname
+    // const onAddMalfunction = () => {
+    //     const malfunction = malfunctionService.getEmptyMalfunction()
+    //     malfunction.name = prompt('שם התקלה?')
+    //     malfunction.createdBy = user.fullname
 
-        console.log(malfunction)
-        dispatch(addMalfunction(malfunction))
-    }
+    //     console.log(malfunction)
+    //     dispatch(addMalfunction(malfunction))
+    // }
     const onUpdateMalfunction = (malfunction) => {
         const name = prompt('New name?')
         const malfunctionToSave = { ...malfunction, name }
@@ -50,13 +50,13 @@ export const ListTailwind = () => {
                     </p>
                 </div>
                 <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-                    <button
-                        type="button"
+                    <Link
+                        to='/malfunction/edit'
                         className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                        onClick={onAddMalfunction}
+                        // onClick={onAddMalfunction}
                     >
                         הוסף תקלה
-                    </button>
+                    </Link>
                 </div>
             </div>
             <div className="mt-8 flow-root">
@@ -121,7 +121,7 @@ export const ListTailwind = () => {
 
                                         <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
                                             <span className="text-gray-900">
-                                                <Link to={`/edit/${malfunction._id}`}>
+                                                <Link to={`/malfunction/edit/${malfunction._id}`}>
                                                     עריכה
                                                 </Link>
                                             </span>

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { connect } from 'react-redux'
 import { Link, NavLink, useNavigate, useParams } from 'react-router-dom'
 import { EditInput } from '../cmps/edit-input'
 import { SuccessesMsg } from '../cmps/successes-msg'
 import routes from '../routes'
 import { malfunctionService } from '../services/malfunction.service'
-import { updateMalfunction } from '../store/malfunction.actions.js'
+import { updateMalfunction, addMalfunction } from '../store/malfunction.actions.js'
 import { CheckCircleIcon } from '@heroicons/react/20/solid'
 
 
@@ -18,6 +18,7 @@ export const EditMalfunction = () => {
 
     const [malfunction, setMalfunction] = useState('')
 
+    const { user } = useSelector(state => state.userModule)
 
     useEffect(async () => {
         console.log(params)
@@ -46,18 +47,22 @@ export const EditMalfunction = () => {
 
         console.log('field,value:', field, typeof value)
         setMalfunction({ ...malfunction, [field]: value })
-        return
+    }
 
+    const onAddMalfunction = () => {
+        let newMalfunction = malfunctionService.getEmptyMalfunction()
+        
+        newMalfunction = { ...newMalfunction, name: malfunction.name, createdBy: user.fullname }
+        dispatch(addMalfunction(newMalfunction))
     }
 
     const onSave = (ev) => {
         ev.preventDefault()
 
-        dispatch(updateMalfunction(malfunction))
+        if (params.id) dispatch(updateMalfunction(malfunction))
+        else onAddMalfunction()
         setDisplayModal(true)
-        // setTimeout(() => {
-        //     setDisplayModal(false)
-        // }, 2000)
+
 
         console.log('save')
     }
@@ -69,30 +74,36 @@ export const EditMalfunction = () => {
         <section dir="rtl" className='edit-malfunction'>
             <div className="mt-4 ml-2 mr-2 border-b border-gray-200 pb-5">
                 <h3 className="text-base font-semibold leading-6 text-gray-900">עריכה</h3>
+                {/* <p>בעמוד זה ניתן לערוך את הפרטים וכן את הסטטוס</p> */}
             </div>
 
             <form onSubmit={onSave} className="mt-4 ml-2 mr-2 border-b border-gray-200 pb-5">
+                <div>
+                    <EditInput
+                        type="text"
+                        name="name"
+                        value={malfunction?.name || ''}
+                        handleChange={handleChange}
+                        title="שם"
+                    />
+                </div>
 
-                <EditInput
-                    type="text"
-                    name="name"
-                    value={malfunction?.name}
-                    handleChange={handleChange}
-                    title="שם"
-                />
 
                 {/* malfunction.treated */}
-                <select
-                    name="treated"
-                    onChange={handleChange}
-                >
-                    {/* <option value="">{malfunction.treated? 'בווצע' : 'לא בוצע'} </option> */}
-                    <option value="">בחר </option>
-                    <option value={true}>בוצע</option>
-                    <option value={false}>לא בוצע</option>
+                <div>
 
+                    <select
+                        name="treated"
+                        onChange={handleChange}
+                        className="mt-4 ml-2  h-10 w-15"
+                    >
+                        {/* <option value="">{malfunction.treated? 'בווצע' : 'לא בוצע'} </option> */}
+                        <option value="">בחר </option>
+                        <option value={true}>בוצע</option>
+                        <option value={false}>לא בוצע</option>
 
-                </select>
+                    </select>
+                </div>
 
 
                 {/* <h3 className="text-base font-semibold leading-6 text-gray-900">  {malfunction?.name} </h3> */}

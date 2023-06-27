@@ -28,8 +28,8 @@ export class RootCmp extends React.Component {
                         <Route path="/signup" element={ <  SignUpTailwind />} />
                         <Route path="/details/:id" element={ <  Details />} />
 
-                        <Route path="/edit/:id" element={ <  EditMalfunction />} />
-                        <Route path="/edit/" element={ <  EditMalfunction />} />
+                        <Route path="/malfunction/edit/:id" element={ <  EditMalfunction />} />
+                        <Route path="/malfunction/edit/" element={ <  EditMalfunction />} />
 
                     </Routes>
                 </main>
