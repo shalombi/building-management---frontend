@@ -3,37 +3,16 @@ import { Link } from "react-router-dom";
 
 import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 import { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { userService } from '../services/user.service.js'
 
-import { onLogin } from '../store/user.actions.js'
-
-// export function SignUpTailwind() {
-
-//   const dispatch = useDispatch()
-
-//   const [isSignup, setIsSignup] = useState(false)
-
-//   const [users, setUsers] = useState([])
+import { onLogin, onLogout } from '../store/user.actions.js'
+import { WelcomeSignIn } from "../cmps/welcome-sign-in.jsx";
 
 
-
-//   const clearState = () => {
-//     setCredentials({ username: '', password: '', fullname: '', imgUrl: '', confirmPassword: '' })
-//     setIsSignup(false)
-//   }
-
-
-// const onSetLogin = (ev = null) => {
-//   if (ev) ev.preventDefault()
-//   if (!credentials.username) return
-//   dispatch(onLogin(credentials))
-//   clearState()
-// }
-
-// username: '', password: '', fullname: '', imgUrl: '',confirmPassword:'' 
 
 export function LoginTailwind() {
+    const { user } = useSelector(state => state.userModule)
 
     const dispatch = useDispatch()
     const [users, setUsers] = useState([])
@@ -42,6 +21,7 @@ export function LoginTailwind() {
         const users = await userService.getUsers()
         setUsers(users)
     }, [])
+
 
     const [credentials, setCredentials] = useState({ username: 'xxx', password: '' })
 
@@ -63,15 +43,22 @@ export function LoginTailwind() {
     }
 
     const clearState = () => {
-        setCredentials({ username: '', password: ''})
+        setCredentials({ username: '', password: '' })
         // setIsSignup(false)
-      }
+    }
     // const onLogin = (ev = null) => {
     //     if (ev) ev.preventDefault();
     //     if (!credentials.username) return;
     //     props.onLogin(credentials);
     //     clearState()
     // }
+    const onSetLogout = () => {
+        dispatch(onLogout())
+    }
+
+    if (user) return (
+            <WelcomeSignIn  user={user} onSetLogout={onSetLogout}/>   
+    )
 
     return (
         <>
