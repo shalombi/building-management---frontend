@@ -32,53 +32,41 @@ export const ListTailwind = () => {
     }
     const onAddMalfunction = () => {
         const malfunction = malfunctionService.getEmptyMalfunction()
-        malfunction.vendor = prompt('Vendor?')
+        malfunction.name = prompt('name?')
+        console.log(malfunction)
         dispatch(addMalfunction(malfunction))
     }
     const onUpdateMalfunction = (malfunction) => {
-        const vendor = prompt('New vendor?')
-        const malfunctionToSave = { ...malfunction, vendor }
+        const name = prompt('New name?')
+        const malfunctionToSave = { ...malfunction, name }
         dispatch(updateMalfunction(malfunctionToSave))
     }
 
     return (
 
 
-        <div className="px-4 sm:px-6 lg:px-8">
+        <div dir='rtl' className="px-4 sm:px-6 lg:px-8">
 
-            <button onClick={onAddMalfunction}>Add Malfunction ⛐</button>
+            {/* <button onClick={onAddMalfunction}>Add Malfunction ⛐</button> */}
 
-            {/* {malfunctions?.map(malfunction =>
-                <li className="malfunction-preview" key={malfunction._id}>
-                    <h4>{malfunction.vendor}</h4>
-                    <h1>⛐</h1>
-                    <p>Price: <span>${malfunction.price.toLocaleString()}</span></p>
-                    <p>Owner: <span>{malfunction.owner && malfunction.owner.fullname}</span></p>
-                    <div>
-                        <button onClick={() => { onRemoveMalfunction(malfunction._id) }}>x</button>
-                        <button onClick={() => { onUpdateMalfunction(malfunction) }}>Edit</button>
-                    </div>
-
-                </li>)
-            } */}
-
-            <div className="sm:flex sm:items-center">
+            <div  className="sm:flex sm:items-center">
                 <div className="sm:flex-auto">
-                    <h1 className="text-base font-semibold leading-6 text-gray-900">Users</h1>
+                    <h1 className="text-base font-semibold leading-6 text-gray-900">מערך הדיור</h1>
                     <p className="mt-2 text-sm text-gray-700">
-                        A list of all the users in your account including their name, title, email and role.
+                        מערכות התקלות - בעמוד זה ניתן להוסיף ,לערוך ולמחוק תקלות
                     </p>
                 </div>
                 <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
                     <button
                         type="button"
                         className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                        onClick={onAddMalfunction}
                     >
-                        Add user
+                        הוסף תקלה
                     </button>
                 </div>
             </div>
-            <div dir='rtl' className="mt-8 flow-root">
+            <div  className="mt-8 flow-root">
                 <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                         <table className="min-w-full divide-y divide-gray-300">
@@ -106,25 +94,25 @@ export const ListTailwind = () => {
                             </thead>
                             <tbody className="divide-y divide-gray-200 bg-white">
                                 {malfunctions.map((malfunction) => (
-                                    <tr key={malfunction.email}>
+                                    <tr key={malfunction._id}>
                                         <td className="whitespace-nowrap py-5 pl-4 pr-3 text-sm sm:pl-0">
                                             <div className="flex items-center">
                                                 <div className="h-11 w-11 flex-shrink-0">
                                                     <img className="h-11 w-11 rounded-full" src={malfunction.image} alt="" />
                                                 </div>
                                                 <div className="ml-4">
-                                                    <div className="font-medium text-gray-900">{malfunction.vendor}</div>
-                                                    <div className="mt-1 text-gray-500">{malfunction.email}</div>
+                                                    <div className="font-medium text-gray-900">{malfunction.name}</div>
+                                                    {/* <div className="mt-1 text-gray-500">{malfunction.email}</div> */}
                                                 </div>
                                             </div>
                                         </td>
                                         <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
-                                            <div className="text-gray-900">{malfunction.title}</div>
-                                            <div className="mt-1 text-gray-500">{malfunction.department}</div>
+                                            <div className="mt-1 text-gray-900"> תאריך : {malfunction.created?.date}  </div>
+                                            <div className="text-gray-900"> שעה : {malfunction.created?.time}</div>
                                         </td>
                                         <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
                                             <span className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
-                                                לא טופל
+                                                {!malfunction.treated? 'לא טופל': 'טופל'}
                                             </span>
                                         </td>
                                         <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">Puki Ja</td>
@@ -154,3 +142,4 @@ export const ListTailwind = () => {
         </div>
     )
 }
+// key={malfunction._id}

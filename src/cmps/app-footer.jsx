@@ -38,7 +38,7 @@ function _AppFooter({ count, malfunctiont, removeFromMalfunctiont, checkout }) {
                             <button onClick={() => {
                                 removeFromMalfunctiont(malfunction._id)
                             }}>x</button>
-                            {malfunction.vendor}
+                            {/* {malfunction.vendor} */}
                         </li>)
                     }
                 </ul>

@@ -54,15 +54,22 @@ async function save(malfunction) {
 }
 
 function getEmptyMalfunction() {
+    const currentDate = new Date()
+
     return {
-        vendor: 'Susita-' + (Date.now() % 1000),
+        name: 'takala-' + (Date.now() % 1000),
         price: utilService.getRandomIntInclusive(1000, 9000),
+        created: {
+            date: currentDate.toLocaleDateString(),
+            time: currentDate.toLocaleTimeString()
+        },
+        treated:false,
     }
 }
 
 
 // TEST DATA
-// storageService.post(STORAGE_KEY, {vendor: 'Subali Rahok 2', price: 980}).then(x => console.log(x))
+// storageService.post(STORAGE_KEY, {name: 'Subali Rahok 2', price: 980}).then(x => console.log(x))
 
 
 

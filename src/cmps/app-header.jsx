@@ -15,7 +15,8 @@ function _AppHeader({ onLogin, onSignup, onLogout, user }) {
             <nav>
                 {routes.map(route => <NavLink key={route.path} to={route.path}>{route.label}</NavLink>)}
 
-                {user &&
+                {
+                    user &&
                     <span className="user-info">
                         <Link to={`user/${user._id}`}>
                             {user.imgUrl && <img src={user.imgUrl} />}
@@ -33,8 +34,6 @@ function _AppHeader({ onLogin, onSignup, onLogout, user }) {
                 }
 
             </nav>
-
-            <h1>My App</h1>
         </header>
     )
 }

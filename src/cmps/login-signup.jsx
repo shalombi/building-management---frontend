@@ -78,7 +78,8 @@ export function LoginSignup(props) {
                 <button>Login!</button>
             </form>}
             <div className="signup-section">
-                {isSignup && <form className="signup-form" onSubmit={onSignup}>
+                {isSignup 
+                && <form className="signup-form" onSubmit={onSignup}>
                     <input
                         type="text"
                         name="fullname"
@@ -105,7 +106,10 @@ export function LoginSignup(props) {
                     />
                     <ImgUploader onUploaded={onUploaded}/>                    
                     <button >Signup!</button>
-                </form>}
+                </form>
+                
+                
+                }
             </div>
         </div>
     )

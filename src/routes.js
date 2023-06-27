@@ -11,32 +11,17 @@ const routes = [
     {
         path: '/',
         component: <HomePage />,
-        label: 'Home 🏠',
+        label: 'בית 🏠',
     },
     {
         path: 'malfunction',
         component: <MalfunctionApp />,
-        label: 'Malfunctions'
-    },
-    {
-        path: 'review',
-        component: <ReviewApp />,
-        label: 'Reviews'
-    },
-    {
-        path: 'chat',
-        component: <ChatApp />,
-        label: 'Chat'
-    },
-    {
-        path: 'about',
-        component: <AboutUs />,
-        label: 'About us'
+        label: 'תקלות'
     },
     {
         path: 'admin',
         component: <AdminApp />,
-        label: 'Admin Only'
+        label: 'מנהל'
     }
 ]
 
