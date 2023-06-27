@@ -1,28 +1,18 @@
 
-import React, { useEffect } from 'react'
-import { connect, useDispatch, useSelector } from 'react-redux'
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { Details } from '../pages/details.jsx'
 
 import { showSuccessMsg } from '../services/event-bus.service.js'
 import { malfunctionService } from '../services/malfunction.service.js'
 
 import { addMalfunction, updateMalfunction, removeMalfunction } from '../store/malfunction.actions.js'
-
-
-
-const people = [
-    {
-        name: 'Lindsay Walton',
-        title: 'Front-end Developer',
-        department: 'Optimization',
-        email: 'lindsay.walton@example.com',
-        role: 'Member',
-        image:
-            'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },
-    // More people...
-]
+import { LoginFirstTxt } from './login-first-txt.jsx'
 
 export const ListTailwind = () => {
+    const { user } = useSelector(state => state.userModule)
+
 
     const dispatch = useDispatch()
     const { malfunctions } = useSelector(state => state.malfunctionModule)
@@ -32,7 +22,9 @@ export const ListTailwind = () => {
     }
     const onAddMalfunction = () => {
         const malfunction = malfunctionService.getEmptyMalfunction()
-        malfunction.name = prompt('name?')
+        malfunction.name = prompt('שם התקלה?')
+        malfunction.createdBy = user.fullname
+
         console.log(malfunction)
         dispatch(addMalfunction(malfunction))
     }
@@ -42,14 +34,15 @@ export const ListTailwind = () => {
         dispatch(updateMalfunction(malfunctionToSave))
     }
 
+    if (!user) return <LoginFirstTxt />
     return (
 
 
         <div dir='rtl' className="px-4 sm:px-6 lg:px-8">
-
+            {/* <Details /> */}
             {/* <button onClick={onAddMalfunction}>Add Malfunction ⛐</button> */}
 
-            <div  className="sm:flex sm:items-center">
+            <div className="sm:flex sm:items-center">
                 <div className="sm:flex-auto">
                     <h1 className="text-base font-semibold leading-6 text-gray-900">מערך הדיור</h1>
                     <p className="mt-2 text-sm text-gray-700">
@@ -66,7 +59,7 @@ export const ListTailwind = () => {
                     </button>
                 </div>
             </div>
-            <div  className="mt-8 flow-root">
+            <div className="mt-8 flow-root">
                 <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                         <table className="min-w-full divide-y divide-gray-300">
@@ -83,6 +76,9 @@ export const ListTailwind = () => {
                                     </th>
                                     <th scope="col" className="px-3 py-3.5 text-right text-sm font-semibold text-gray-900">
                                         נוצר על ידי
+                                    </th>
+                                    <th scope="col" className="px-3 py-3.5 text-right text-sm font-semibold text-gray-900">
+                                        פרטים נוספים
                                     </th>
                                     <th className="px-3 py-3.5 text-right text-sm font-semibold text-gray-900">
                                         <span className="">עריכה</span>
@@ -112,10 +108,16 @@ export const ListTailwind = () => {
                                         </td>
                                         <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
                                             <span className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
-                                                {!malfunction.treated? 'לא טופל': 'טופל'}
+                                                {!malfunction.treated ? 'לא טופל' : 'טופל'}
                                             </span>
                                         </td>
-                                        <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">Puki Ja</td>
+                                        <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">{malfunction?.createdBy}</td>
+
+                                        <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
+                                            <Link to={`/details/${malfunction._id}`}>
+                                                לחץ לפרטים נוספים
+                                            </Link>
+                                        </td>
 
                                         <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
                                             <span className="text-gray-900">

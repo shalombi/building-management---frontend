@@ -64,6 +64,7 @@ function getEmptyMalfunction() {
             time: currentDate.toLocaleTimeString()
         },
         treated:false,
+        createdBy:''
     }
 }
 

@@ -11,7 +11,7 @@ import { UserDetails } from './pages/user-details'
 import { AppHeaderTailwind } from './cmps/app-header-tailwind'
 import { LoginTailwind } from './pages/login-tailwind'
 import { SignUpTailwind } from './pages/sign-up-tailwind'
-
+import { Details } from './pages/details'
 export class RootCmp extends React.Component {
 
     render() {
@@ -25,10 +25,10 @@ export class RootCmp extends React.Component {
                         <Route path="user/:id" element={<UserDetails />} />
                         <Route path="/login" element={ <LoginTailwind />} />
                         <Route path="/signup" element={ <  SignUpTailwind />} />
+                        <Route path="/details/:id" element={ <  Details />} />
 
-                      
 
-
+                        {/* Details */}
                     </Routes>
                 </main>
                 {/* <AppFooter /> */}
