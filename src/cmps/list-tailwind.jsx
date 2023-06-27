@@ -107,7 +107,7 @@ export const ListTailwind = () => {
                                             <div className="text-gray-900"> שעה : {malfunction.created?.time}</div>
                                         </td>
                                         <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
-                                            <span className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
+                                            <span className={`inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset   ${malfunction.treated ? 'bg-green-50 text-green-700 ring-green-600/20': 'bg-orange-200 text-black ring-green-600/20'}`} >
                                                 {!malfunction.treated ? 'לא טופל' : 'טופל'}
                                             </span>
                                         </td>
