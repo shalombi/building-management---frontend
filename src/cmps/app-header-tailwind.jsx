@@ -6,6 +6,7 @@ import React from 'react'
 import { Link, NavLink } from 'react-router-dom'
 
 import routes from '../routes'
+import { useSelector } from 'react-redux'
 
 
 
@@ -18,6 +19,8 @@ const navigation = [
 
 export const AppHeaderTailwind = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const { user } = useSelector(state => state.userModule)
+
 
   return (
     <header dir="rtl" className="bg-gray-900">
@@ -48,11 +51,15 @@ export const AppHeaderTailwind = () => {
           {routes.map(route => <NavLink className="text-sm font-semibold leading-6 text-white" key={route.path} to={route.path}>{route.label}</NavLink>)}
 
         </div>
+
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <Link to="/login" className="text-sm font-semibold leading-6 text-white">
-          <span aria-hidden="true">&rarr;</span> התחבר/י
+            <div> {!user && <span>&rarr;  התחבר/י</span>} {user && <span >שלום {user.fullname} | איזור אישי</span>}  </div>
           </Link>
         </div>
+
+
+
       </nav>
       <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
         <div className="fixed inset-0 z-10" />
@@ -93,12 +100,9 @@ export const AppHeaderTailwind = () => {
                 ))} */}
               </div>
               <div className="py-6">
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-white hover:bg-gray-800"
-                >
-                התחבר/י
-                </a>
+                <Link to="/login" className="text-sm font-semibold leading-6 text-white">
+                  <div> {!user && <span>&rarr;  התחבר/י</span>} {user && <span > {user.fullname}  | איזור אישי</span>}  </div>
+                </Link>
               </div>
             </div>
           </div>

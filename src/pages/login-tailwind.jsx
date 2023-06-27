@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { userService } from '../services/user.service.js'
 
 import { onLogin, onLogout } from '../store/user.actions.js'
-import { WelcomeSignIn } from "../cmps/welcome-sign-in.jsx";
+import { WelcomeSignIn } from "../cmps/welcome-sign-in.jsx"
 
 
 
@@ -57,7 +57,7 @@ export function LoginTailwind() {
     }
 
     if (user) return (
-            <WelcomeSignIn  user={user} onSetLogout={onSetLogout}/>   
+        <WelcomeSignIn user={user} onSetLogout={onSetLogout} />
     )
 
     return (
