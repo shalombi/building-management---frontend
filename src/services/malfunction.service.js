@@ -4,6 +4,7 @@ import { utilService } from './util.service.js'
 import { userService } from './user.service.js'
 import { getActionRemoveMalfunction, getActionAddMalfunction, getActionUpdateMalfunction } from '../store/malfunction.actions.js'
 import { store } from '../store/store'
+import { httpService } from './http.service.js'
 
 // This file demonstrates how to use a BroadcastChannel to notify other browser tabs 
 
@@ -27,27 +28,59 @@ export const malfunctionService = {
 window.cs = malfunctionService
 
 
-function query() {
-    return storageService.query(STORAGE_KEY)
+async function query() {
+    // Local
+    // return storageService.query(STORAGE_KEY)
+
+    // Remote
+    // return axios.get(`/api/malfunction`)
+    const malfunction = await httpService.get(`malfunction`, {})
+    console.log('malfunction:', malfunction)
+    return malfunction
+
 }
-function getById(malfunctionId) {
-    return storageService.get(STORAGE_KEY, malfunctionId)
-    // return axios.get(`/api/malfunction/${malfunctionId}`)
+async function getById(malfunctionId) {
+    // Local
+    // return storageService.get(STORAGE_KEY, malfunctionId)
+
+    // Remote
+    const malfunction = await httpService.get(`malfunction/${malfunctionId}`)
+    return malfunction
 }
+
 async function remove(malfunctionId) {
-    await storageService.remove(STORAGE_KEY, malfunctionId)
+    // Local
+    // await storageService.remove(STORAGE_KEY, malfunctionId)
+
+    // Remote
+    await httpService.delete(`malfunction/${malfunctionId}`)
+
+
     malfunctionChannel.postMessage(getActionRemoveMalfunction(malfunctionId))
 }
+
 async function save(malfunction) {
     var savedMalfunction
     if (malfunction._id) {
-        savedMalfunction = await storageService.put(STORAGE_KEY, malfunction)
+        // Local
+        // savedMalfunction = await storageService.put(STORAGE_KEY, malfunction)
+
+        // Remote
+        savedMalfunction = await httpService.put(`malfunction/${malfunction._id}`, malfunction)
+        return savedMalfunction
+
         malfunctionChannel.postMessage(getActionUpdateMalfunction(savedMalfunction))
 
     } else {
         // Later, owner is set by the backend
         malfunction.owner = userService.getLoggedinUser()
-        savedMalfunction = await storageService.post(STORAGE_KEY, malfunction)
+
+        // Local
+        // savedMalfunction = await storageService.post(STORAGE_KEY, malfunction)
+        
+        // Remote
+        return await httpService.post(`malfunction`, malfunction)
+
         malfunctionChannel.postMessage(getActionAddMalfunction(savedMalfunction))
     }
     return savedMalfunction
@@ -63,8 +96,8 @@ function getEmptyMalfunction() {
             date: currentDate.toLocaleDateString(),
             time: currentDate.toLocaleTimeString()
         },
-        treated:false,
-        createdBy:''
+        treated: false,
+        createdBy: ''
     }
 }
 
